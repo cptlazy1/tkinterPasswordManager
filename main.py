@@ -1,7 +1,6 @@
 # Import necessary modules for GUI, file operations, and data handling
 from tkinter import *
 from tkinter import messagebox
-import pandas as pd
 import random
 import string
 import pyperclip
@@ -25,7 +24,7 @@ def count_passwords():
         with open(file_name, "r") as file:
             data = json.load(file)
             return str(len(data))
-    except (FileNotFoundError, json.JSONDecodeError):
+    except (FileNotFoundError):
         # If file doesn't exist yet, return "0"
         return "0"
 
@@ -58,11 +57,11 @@ def save_credentials():
     
     # Check if any field is empty and show error message
     if len(website) == 0:
-        messagebox.showerror(title="Error", message="Website cannot be empty")
+        messagebox.showerror(title="Error", message="Website cannot be empty!")
     elif len(email) == 0:
-        messagebox.showerror(title="Error", message="Email cannot be empty")
+        messagebox.showerror(title="Error", message="Username cannot be empty!")
     elif len(password) == 0:
-        messagebox.showerror(title="Error", message="Password cannot be empty")
+        messagebox.showerror(title="Error", message="Password cannot be empty!")
     else:
         # All fields have data, so save the credentials to JSON file
         file_name = "data.json"
@@ -75,7 +74,7 @@ def save_credentials():
             # Try to read existing data from JSON file
             with open(file_name, "r") as file:
                 data = json.load(file)
-        except (FileNotFoundError, json.JSONDecodeError):
+        except (FileNotFoundError):
             # If file doesn't exist or is empty, start with empty dict
             data = {}
         # Update data with new entry and write back to JSON file
@@ -89,9 +88,11 @@ def save_credentials():
         # Put cursor back in website field for next entry
         website_input_field.focus()
         # Update the password counter display
-        count_passwords_label.config(text=f"Passwords saved: {count_passwords()}")
+        count_passwords_label.config(text=f"Passwords saved ({count_passwords()})")
         # Show success message
         messagebox.showinfo(title="Success", message="Credentials saved!")
+
+# ---------------------------- SEARCH PASSWORD ------------------------ #
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Create the main window
