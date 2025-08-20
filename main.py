@@ -1,7 +1,6 @@
 # Import necessary modules for GUI, file operations, and data handling
 from tkinter import *
 from tkinter import messagebox
-import os
 import pandas as pd
 import random
 import string
@@ -119,26 +118,27 @@ canvas.grid(column=0, row=0, columnspan=3, pady=30)
 # Create and position the website input section
 website_label = Label(text="Website  ", font=(FONT_NAME, 12, "bold"))
 website_label.grid(column=0, row=1, sticky="e", padx=(2, 0))
+
 website_input_field = Entry(width=35)
 website_input_field.grid(column=1, row=1, sticky="w")
 website_input_field.focus()  # Start with cursor in this field
 
 # Create and position the email input section
-email_label = Label(text="Username ", 
-               font=(FONT_NAME, 12, "bold"))
+email_label = Label(text="Username ", font=(FONT_NAME, 12, "bold"))
 email_label.grid(column=0, row=2, sticky="e", padx=(2, 0))
+
 email_input_field = Entry(width=35)
 email_input_field.grid(column=1, row=2, sticky="w")
 
 # Create and position the password input section
 password_label = Label(text="Password ", font=(FONT_NAME, 12, "bold"))
 password_label.grid(column=0, row=3, sticky="e", padx=(2, 0))
+
 password_input_field = Entry(width=35)
 password_input_field.grid(column=1, row=3, sticky="w")
 
 # Display how many passwords are currently saved
-count_passwords_label = Label(text=f"Passwords saved ({count_passwords()})", 
-                              font=(FONT_NAME, 12, "bold"))
+count_passwords_label = Label(text=f"Passwords saved ({count_passwords()})", font=(FONT_NAME, 12, "bold"))
 count_passwords_label.grid(column=0, row=0, columnspan=3, sticky="n")
 
 # Create buttons for generating passwords and saving data
