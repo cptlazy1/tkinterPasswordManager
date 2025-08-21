@@ -97,8 +97,8 @@ def search_creddentials():
                     username = data[website]["Email"]
                     password = data[website]["Password"]
                     messagebox.showinfo(title="Success!", message=f"Credentials found for: {website}\nUsername: {username}\nPassword : {password}")
-    except FileNotFoundError as error_message:
-        messagebox.showerror(title="Error", message=error_message)
+    except FileNotFoundError:
+        messagebox.showerror(title="Error", message="Website not found")
 
 # ---------------------------- UI SETUP ---------------- #
 window = Tk()
