@@ -95,21 +95,24 @@ def save_credentials():
 
 # ---------------------------- SEARCH PASSWORD ------------------------ #
 def search_creddentials():
-    website = website_input_field.get()
+    search_website = website_input_field.get()
     file_name = "data.json"
     try:
         with open(file_name, "r") as file:
-            data = json.load(file)            
-        for i in data.keys():
-            if website == i:     
-                username = data[i]["Email"]
-                print(username)
-                password = data[i]["Password"]
-                print(password)
-                messagebox.showinfo(title="Success!", message=f"Credentials found for: {website}\nUsername: {username}\nPassword : {password}")              
+            data = json.load(file) 
+        if len(search_website) == 0:
+            messagebox.showerror(title="Error", message="Please enter a website")
+        else:
+            for website in data.keys():
+                if search_website not in data.keys():
+                    messagebox.showerror(title="Error", message="Website not found")
+                    break
+                elif search_website == website:     
+                    username = data[website]["Email"]
+                    password = data[website]["Password"]
+                    messagebox.showinfo(title="Success!", message=f"Credentials found for: {website}\nUsername: {username}\nPassword : {password}")    
     except FileNotFoundError as error_message:
         messagebox.showerror(title="Error", message=error_message)
-
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Create the main window
