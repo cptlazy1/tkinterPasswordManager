@@ -24,7 +24,7 @@ def count_passwords():
         with open(file_name, "r") as file:
             data = json.load(file)
             return str(len(data))
-    except (FileNotFoundError):
+    except FileNotFoundError:
         # If file doesn't exist yet, return "0"
         return "0"
 
@@ -65,7 +65,8 @@ def save_credentials():
     else:
         # All fields have data, so save the credentials to JSON file
         file_name = "data.json"
-        new_entry = {website: {
+        new_entry = {
+            website: {
             "Email": email, 
             "Password": password
             }
@@ -74,7 +75,7 @@ def save_credentials():
             # Try to read existing data from JSON file
             with open(file_name, "r") as file:
                 data = json.load(file)
-        except (FileNotFoundError):
+        except FileNotFoundError:
             # If file doesn't exist or is empty, start with empty dict
             data = {}
         # Update data with new entry and write back to JSON file
@@ -93,6 +94,22 @@ def save_credentials():
         messagebox.showinfo(title="Success", message="Credentials saved!")
 
 # ---------------------------- SEARCH PASSWORD ------------------------ #
+def search_creddentials():
+    website = website_input_field.get()
+    file_name = "data.json"
+    try:
+        with open(file_name, "r") as file:
+            data = json.load(file)            
+        for i in data.keys():
+            if website == i:     
+                username = data[i]["Email"]
+                print(username)
+                password = data[i]["Password"]
+                print(password)
+                messagebox.showinfo(title="Success!", message=f"Credentials found for: {website}\nUsername: {username}\nPassword : {password}")              
+    except FileNotFoundError as error_message:
+        messagebox.showerror(title="Error", message=error_message)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Create the main window
@@ -143,7 +160,7 @@ count_passwords_label = Label(text=f"Passwords saved ({count_passwords()})", fon
 count_passwords_label.grid(column=0, row=0, columnspan=3, sticky="n")
 
 # Create buttons for generating passwords and saving data
-search_button = Button(text="Search")
+search_button = Button(text="Search", command=search_creddentials)
 search_button.grid(column=2, row=1)
 
 generate_password_button = Button(text="Generate\npassword", command=generate_password)
