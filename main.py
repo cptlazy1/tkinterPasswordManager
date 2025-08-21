@@ -87,18 +87,18 @@ def search_creddentials():
         with open(file_name, "r") as file:
             data = json.load(file)
         if len(search_website) == 0:
-            messagebox.showerror(title="Error", message="Please enter a website")
-        else:
-            for website in data:
-                if search_website not in data.keys():
-                    messagebox.showerror(title="Error", message="Website not found")
-                    break
-                elif search_website == website:
-                    username = data[website]["Email"]
-                    password = data[website]["Password"]
-                    messagebox.showinfo(title="Success!", message=f"Credentials found for: {website}\nUsername: {username}\nPassword : {password}")
+            messagebox.showerror(title="Error", message="Please enter a website")            
     except FileNotFoundError:
-        messagebox.showerror(title="Error", message="Website not found")
+        messagebox.showerror(title="Error", message="No credentials in database.\nPlease save a credential first.")
+    else:
+        for website in data:
+            if search_website not in data.keys():
+                messagebox.showerror(title="Error", message="Website not found")
+                break
+            elif search_website == website:
+                username = data[website]["Email"]
+                password = data[website]["Password"]
+                messagebox.showinfo(title="Success!", message=f"Credentials found for: {website}\nUsername: {username}\nPassword : {password}")    
 
 # ---------------------------- UI SETUP ---------------- #
 window = Tk()
